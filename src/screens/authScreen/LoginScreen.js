@@ -1,10 +1,32 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import {storage} from "../../storage/Storage";
 
 const LoginScreen = ({ navigation }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+    const handleLogin = () => {
+
+    console.log("Login button pressed");
+
+    if (email && password) {
+
+      const token = "123456789";
+
+      storage.set("userToken", token);
+
+      console.log("Token saved in MMKV:", storage.getString("userToken"));
+      console.log("email" , email);
+      console.log("password" , password);
+
+      navigation.replace("MainApp");
+
+    } else {
+      console.log("Enter email and password");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -35,7 +57,8 @@ const LoginScreen = ({ navigation }) => {
      </View>
 
      <View>
-       <TouchableOpacity style={styles.loginBtn}>
+       <TouchableOpacity onPress={handleLogin} 
+        style={styles.loginBtn}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
      </View>

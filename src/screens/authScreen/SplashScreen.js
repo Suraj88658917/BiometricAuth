@@ -1,12 +1,25 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import {storage} from "../../storage/Storage";
 
 const SplashScreen = ({ navigation }) => {
 
-  useEffect(() => {
-    setTimeout(() => {
+   useEffect(() => {
+
+    console.log("App started");
+
+    const token = storage.getString("userToken");
+
+    console.log("Token from MMKV:", token);
+
+    if (token) {
+      console.log("User already logged in");
+      navigation.replace("MainApp");
+    } else {
+      console.log("User not logged in");
       navigation.replace("LoginScreen");
-    }, 1500);
+    }
+
   }, []);
 
   return (

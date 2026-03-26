@@ -1,11 +1,30 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { storage } from "../../storage/Storage";
 
 const RegisterScreen = ({ navigation }) => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
+   const handleRegister = () => {
+
+    console.log("Register button pressed");
+
+    storage.set("userName", name);
+    storage.set("userEmail", email);
+    storage.set("userPassword", password);
+
+    console.log("User saved in MMKV");
+     console.log("name" , name);
+      console.log("email" , email);
+       console.log("password" , password);
+
+    navigation.replace("LoginScreen");
+  };
+
 
   return (
     <View style={styles.container}>
@@ -46,7 +65,8 @@ const RegisterScreen = ({ navigation }) => {
      </View>
 
      <View>
-       <TouchableOpacity style={styles.registerBtn}>
+       <TouchableOpacity  onPress={handleRegister}
+       style={styles.registerBtn}>
         <Text style={styles.registerText}>Register</Text>
       </TouchableOpacity>
      </View>
