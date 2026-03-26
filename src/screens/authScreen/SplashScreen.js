@@ -1,22 +1,55 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import {storage} from "../../storage/Storage";
+import ReactNativeBiometrics from "react-native-biometrics";
 
 const SplashScreen = ({ navigation }) => {
-
-   useEffect(() => {
-
-    console.log("App started");
+  
+  useEffect(() => {
 
     const token = storage.getString("userToken");
 
-    console.log("Token from MMKV:", token);
-
     if (token) {
-      console.log("User already logged in");
-      navigation.replace("MainApp");
-    } else {
-      console.log("User not logged in");
+
+      const rnBiometrics = new ReactNativeBiometrics();
+
+      // check if biometric available (fingerprint / face lock)
+      rnBiometrics.isSensorAvailable()
+        .then((resultObject) => {
+
+          const { available, biometryType } = resultObject;
+
+          if (available) {
+
+            console.log("Biometric available:", biometryType);
+
+            rnBiometrics.simplePrompt({
+              promptMessage: "Login using Fingerprint / Face Lock",
+            })
+            .then((resultObject) => {
+
+              if (resultObject.success) {
+                console.log("Biometric success");
+                navigation.replace("MainApp");
+              } else {
+                console.log("Biometric failed");
+                navigation.replace("LoginScreen");
+              }
+
+            })
+            .catch(() => {
+              console.log("Biometric error");
+              navigation.replace("LoginScreen");
+            });
+
+          } else {
+            console.log("No biometric available");
+            navigation.replace("LoginScreen");
+          }
+
+        });
+    } 
+    else {
       navigation.replace("LoginScreen");
     }
 
