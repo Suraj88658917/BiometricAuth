@@ -6,7 +6,7 @@ const RegisterScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.text}>Register Screen</Text>
 
-      <Button title="Register" onPress={() => navigation.replace("HomeScreen")} />
+      <Button title="Register" onPress={() => navigation.replace("MainApp")} />
 
       <Button
         title="Back to Login"

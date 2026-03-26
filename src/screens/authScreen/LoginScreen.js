@@ -6,7 +6,7 @@ const LoginScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.text}>Login Screen</Text>
 
-      <Button title="Login" onPress={() => navigation.replace("HomeScreen")} />
+      <Button title="Login" onPress={() => navigation.replace("MainApp")} />
 
       <Button
         title="Go to Register"
