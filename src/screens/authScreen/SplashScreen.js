@@ -6,12 +6,13 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.replace("LoginScreen");
-    }, 2000);
+    }, 1500);
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome App</Text>
+      <Text style={styles.logo}>MyApp</Text>
+      <Text style={styles.tag}>Welcome to the app</Text>
     </View>
   );
 };
@@ -19,6 +20,20 @@ const SplashScreen = ({ navigation }) => {
 export default SplashScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  text: { fontSize: 24, fontWeight: "bold" },
+  container: {
+    flex: 1,
+    backgroundColor: "#0A84FF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logo: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  tag: {
+    fontSize: 16,
+    color: "#fff",
+    marginTop: 10,
+  },
 });
